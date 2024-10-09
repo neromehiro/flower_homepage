@@ -1,138 +1,141 @@
 // app/page.tsx
 "use client";
+
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
-const initialDisplayValue = "0";
+const flowerPatternBg = "bg-[url('/path-to-flower-pattern.png')]";
+const mainTitle = "Welcome to My Portfolio";
+const introductionText =
+  "This is a cute and aesthetic portfolio website created using Next.js 14, shadcn/ui, Tailwind CSS, and framer-motion.";
+const aboutMeText =
+  "I'm a web developer with a passion for building beautiful and functional websites.";
 
-const App = () => {
-  const [displayValue, setDisplayValue] = useState(initialDisplayValue);
-  const [operator, setOperator] = useState<string | null>(null);
-  const [firstOperand, setFirstOperand] = useState<string | null>(null);
-  const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
+export default function PortfolioPage() {
+  const [contactInfo, setContactInfo] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleButtonClick = (value: string) => {
-    if (waitingForSecondOperand) {
-      setDisplayValue(value);
-      setWaitingForSecondOperand(false);
-    } else {
-      setDisplayValue((prevValue) =>
-        prevValue === initialDisplayValue ? value : prevValue + value
-      );
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
   };
 
-  const handleOperatorClick = (nextOperator: string) => {
-    const inputValue = parseFloat(displayValue);
-
-    if (firstOperand === null) {
-      setFirstOperand(inputValue.toString());
-    } else if (operator) {
-      const result = calculate(firstOperand, inputValue.toString(), operator);
-      setDisplayValue(result);
-      setFirstOperand(result);
-    }
-
-    setWaitingForSecondOperand(true);
-    setOperator(nextOperator);
+  const handleSubmit = () => {
+    alert("Your message has been submitted!");
   };
-
-  const calculate = (firstOperand: string, secondOperand: string, operator: string) => {
-    const first = parseFloat(firstOperand);
-    const second = parseFloat(secondOperand);
-
-    if (operator === "+") return (first + second).toString();
-    if (operator === "-") return (first - second).toString();
-    if (operator === "*") return (first * second).toString();
-    if (operator === "/") return second === 0 ? "Error" : (first / second).toString();
-    return secondOperand;
-  };
-
-  const handleEqualClick = () => {
-    const inputValue = parseFloat(displayValue);
-
-    if (operator && firstOperand) {
-      const result = calculate(firstOperand, inputValue.toString(), operator);
-      setDisplayValue(result);
-      setFirstOperand(null);
-      setOperator(null);
-    }
-  };
-
-  const handleClearClick = () => {
-    setDisplayValue(initialDisplayValue);
-    setFirstOperand(null);
-    setOperator(null);
-    setWaitingForSecondOperand(false);
-  };
-
-  const renderButton = (value: string, onClick: () => void) => (
-    <motion.div
-      whileTap={{ scale: 0.9 }}
-      whileHover={{ scale: 1.1 }}
-      className="flex justify-center items-center m-1 p-4 bg-gray-200 rounded-lg"
-    >
-      <Button variant="outline" onClick={onClick}>
-        {value}
-      </Button>
-    </motion.div>
-  );
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-50">
-      <Card className="p-6 w-96 shadow-lg bg-white">
-        <CardHeader>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-2xl font-bold"
-          >
-            Calculator
-          </motion.div>
-        </CardHeader>
-        <CardContent>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <Input
-              type="text"
-              value={displayValue}
-              readOnly
-              className="text-right text-xl py-2 px-4 border rounded-lg w-full"
-            />
-          </motion.div>
-          <div className="grid grid-cols-4 gap-2">
-            {renderButton("7", () => handleButtonClick("7"))}
-            {renderButton("8", () => handleButtonClick("8"))}
-            {renderButton("9", () => handleButtonClick("9"))}
-            {renderButton("/", () => handleOperatorClick("/"))}
+    <div className={`min-h-screen p-10 ${flowerPatternBg} bg-cover bg-center`}>
+      {/* Header Section */}
+      <header className="text-center mb-10">
+        <h1 className="text-5xl font-bold text-pink-500 animate-bounce">
+          {mainTitle}
+        </h1>
+        <p className="text-xl mt-4 text-gray-700">{introductionText}</p>
+      </header>
 
-            {renderButton("4", () => handleButtonClick("4"))}
-            {renderButton("5", () => handleButtonClick("5"))}
-            {renderButton("6", () => handleButtonClick("6"))}
-            {renderButton("*", () => handleOperatorClick("*"))}
+      {/* About Me Section */}
+      <section className="mb-16">
+        <Card className="max-w-3xl mx-auto shadow-lg">
+          <CardHeader>
+            <h2 className="text-3xl font-semibold text-pink-600">About Me</h2>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg text-gray-600">{aboutMeText}</p>
+          </CardContent>
+        </Card>
+      </section>
 
-            {renderButton("1", () => handleButtonClick("1"))}
-            {renderButton("2", () => handleButtonClick("2"))}
-            {renderButton("3", () => handleButtonClick("3"))}
-            {renderButton("-", () => handleOperatorClick("-"))}
+      {/* Portfolio Section */}
+      <section className="mb-16">
+        <Card className="max-w-3xl mx-auto shadow-lg">
+          <CardHeader>
+            <h2 className="text-3xl font-semibold text-pink-600">
+              My Work
+            </h2>
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg"
+            >
+              <h3 className="text-xl font-semibold mb-2">Project 1</h3>
+              <p className="text-gray-600">
+                A description of the first project goes here.
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg"
+            >
+              <h3 className="text-xl font-semibold mb-2">Project 2</h3>
+              <p className="text-gray-600">
+                A description of the second project goes here.
+              </p>
+            </motion.div>
+          </CardContent>
+        </Card>
+      </section>
 
-            {renderButton("0", () => handleButtonClick("0"))}
-            {renderButton("C", handleClearClick)}
-            {renderButton("=", handleEqualClick)}
-            {renderButton("+", () => handleOperatorClick("+"))}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Contact Form */}
+      <section>
+        <Card className="max-w-3xl mx-auto shadow-lg">
+          <CardHeader>
+            <h2 className="text-3xl font-semibold text-pink-600">Contact Me</h2>
+          </CardHeader>
+          <CardContent>
+            <form className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-lg text-gray-600">
+                  Name
+                </label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={contactInfo.name}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-lg text-gray-600">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={contactInfo.email}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-lg text-gray-600">
+                  Message
+                </label>
+                <Input
+                  id="message"
+                  name="message"
+                  type="text"
+                  value={contactInfo.message}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full"
+                />
+              </div>
+              <Button onClick={handleSubmit} className="bg-pink-500 w-full">
+                Submit
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </section>
     </div>
   );
-};
-
-export default App;
+}
