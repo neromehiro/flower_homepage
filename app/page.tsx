@@ -8,11 +8,11 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
 const flowerPatternBg = "bg-[url('/path-to-flower-pattern.png')]";
-const mainTitle = "Welcome to My Portfolio";
+const mainTitle = "こんにちは！お花屋さんの田中です！";
 const introductionText =
-  "This is a cute and aesthetic portfolio website created using Next.js 14, shadcn/ui, Tailwind CSS, and framer-motion.";
+  "私はお花屋を運営しています。";
 const aboutMeText =
-  "I'm a web developer with a passion for building beautiful and functional websites.";
+  "私はお花屋さんを運営すると同時に、webの開発者でもあります。";
 
 export default function PortfolioPage() {
   const [contactInfo, setContactInfo] = useState({
