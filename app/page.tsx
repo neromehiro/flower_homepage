@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
-const flowerPatternBg = "bg-[url('/path-to-flower-pattern.png')]";
+// 画像パスを設定
+const flowerPatternBg = "bg-[url('/images/flower-background.jpg')]"; 
 const mainTitle = "こんにちは！お花屋さんの田中です！";
-const introductionText =
-  "私はお花屋を運営しています。";
-const aboutMeText =
-  "私はお花屋さんを運営すると同時に、webの開発者でもあります。";
+const introductionText = "私はお花屋を運営しています。";
+const aboutMeText = "私はお花屋さんを運営すると同時に、webの開発者でもあります。";
 
 export default function PortfolioPage() {
   const [contactInfo, setContactInfo] = useState({
@@ -55,9 +54,7 @@ export default function PortfolioPage() {
       <section className="mb-16">
         <Card className="max-w-3xl mx-auto shadow-lg">
           <CardHeader>
-            <h2 className="text-3xl font-semibold text-pink-600">
-              My Work
-            </h2>
+            <h2 className="text-3xl font-semibold text-pink-600">My Work</h2>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <motion.div
