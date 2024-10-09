@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
-// 画像パスを設定
-const flowerPatternBg = "bg-[url('/images/flower-background.jpg')]"; 
+// 画像のURLを直接指定
+const flowerPatternBg = "bg-[url('https://photo-chips.com/user_data/00013247_541528.jpg')]";
 const mainTitle = "こんにちは！お花屋さんの田中です！";
 const introductionText = "私はお花屋を運営しています。";
 const aboutMeText = "私はお花屋さんを運営すると同時に、webの開発者でもあります。";
